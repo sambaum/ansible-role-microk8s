@@ -1,10 +1,27 @@
 ---
-- import_tasks: install.yml
+- name: install microk8s
+  ansible.builtin.import_tasks:
+    file: install.yml
+  tags:
+    - always
+    - microk8s
 
-- name: configure users
-  include_tasks: configure-groups.yml
-  when: "users is defined and users not in ([], None, '', omit)"
+- name: configure microk8s Users
+  ansible.builtin.include_tasks:
+    file: configure-groups.yml
+  when:
+    - microk8s_users is defined
+    - microk8s_users not in ([], None, '', omit)
+  tags:
+    - microk8s
+    - microk8s.users
 
 - name: configure High Availability
-  include_tasks: configure-HA.yml
-  when: "microk8s_enable_HA"
+  ansible.builtin.include_tasks:
+    file: configure-HA.yml
+  when:
+    - microk8s_enable_ha | bool
+  tags:
+    - microk8s
+    - microk8s.ha
+...

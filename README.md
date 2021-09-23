@@ -1,20 +1,23 @@
 # Ansible Role: microk8s
 
-Role to download and install [microk8s](https://microk8s.io/) the smallest, simplest, pure production K8s.
+![MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/racqspace/ansible-role-microk8s/Main?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/racqspace/ansible-role-microk8s?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/racqspace/ansible-role-microk8s?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2022?style=flat-square)
+
+![Ansible Role](https://img.shields.io/ansible/role/56296?style=flat-square)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/56296?style=flat-square)
+
+Install and configure [microk8s](https://microk8s.io/) - the smallest, simplest, pure production K8s on debian based systems.
 
 ## Requirements
 
-* Ansible >= 2.7
+* Ansible >= 2.10
 * Linux Distribution
     * Debian Family
         * Ubuntu
-            * Xenial (16.04)
-            * Bionic (18.04)
-    * Arch Linux (untested)
-
-## License
-
-MIT
+            * Focal (20.04)
 
 ## Usage
 
@@ -22,11 +25,9 @@ MIT
 
 Some variables available in this role are listed here.  The full set is
 defined in `[defaults/main.yml](defaults/main.yml)`.
-
-* `microk8s_version`: Version to use, defaults to `1.19/stable`.
 * `microk8s_plugins`: Enable/disable various plugins.
-* `microk8s_enable_HA`: Enable/disable high-availability.
-* `microk8s_group_HA`: Hostgroup whose members will form HA cluster.
+* `microk8s_enable_ha`: Enable/disable high-availability.
+* `microk8s_group_ha`: Hostgroup whose members will form HA cluster.
 * `microk8s_csr_template`: If defined, will cause a custom CSR to be used in
   generating certificates.
 
@@ -35,57 +36,30 @@ defined in `[defaults/main.yml](defaults/main.yml)`.
 ```yaml
 - hosts: servers
   roles:
-    - role: istvano.microk8s
+    - role: racqspace.microk8s
       vars:
         microk8s_plugins:
           istio: true
           ingress: true
 ```
 
-### Custom certificate request template
+## License
 
-It might be useful to customize the certificate request template used by
-MicroK8s in generating cluster certificates.  For example, additional SANs can
-be added to the certificates such that the MicroK8s certificates validate when
-addressed from outside the cluster, such as through a reverse proxy.
+MIT
 
-To generate a CSR template, the easiest is probably to use the role without
-a template, and then copy the CSR in
-`/var/snap/microk8s/current/certs/csr.conf.template` to your playbook's
-templates directory, make the edits and set the `microk8s_csr_template`
-variable accordingly, and re-run the playbook.
+## Author Information
 
-## Testing
+This role is maintained by [Clemens Kaserer](https://www.ckaserer.dev/).
 
-### Using Molecule wrapper and system Python
+Contributions by:
 
-* `./moleculew lint`
-* `./moleculew create`
-* `./moleculew list`
-* `./moleculew check`
-* `./moleculew test`
-
-### Using Python virtual environment
-
-* Set up virtual environment
-    ```
-    $ python3 -m venv venv
-    ```
-* Activate the environment
-    ```
-    $ . venv/bin/activate
-    ```
-* Install Molecule with lint and Docker options
-    ```
-    $ pip install 'molecule[lint,docker]'
-    ```
-* Install up-to-date Ansible package if necessary
-    ```
-    $ pip install ansible
-    ```
-* Run the test commands:
-  * `molecule lint`
-  * `molecule create`
-  * `molecule list`
-  * `molecule check`
-  * `molecule test`
+- [@ckaserer](https://github.com/ckaserer)
+- [@Defilan]((https://github.com/defilan)
+- [@dleske]((https://github.com/dleske)
+- [@dyasny]((https://github.com/dyasny)
+- [@ericpardee]((https://github.com/ericpardee)
+- [@eshikhov]((https://github.com/eshikhov)
+- [@istvano]((https://github.com/istvano)
+- [@markmywords]((https://github.com/markmywords)
+- [@Turiok]((https://github.com/turiok)
+- [@vonDowntown]((https://github.com/vonDowntown)

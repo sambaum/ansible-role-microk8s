@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: instance*
+  roles:
+    - role: racqspace.microk8s
+      vars:
+        microk8s_users:
+          - ckaserer
+...

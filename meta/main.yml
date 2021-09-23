@@ -1,19 +1,24 @@
 ---
 galaxy_info:
   role_name: microk8s
-  namespace: istvano
-  description: Ansible role for installing and set-up microk8s.
-  author: Istvan Orban
-  company: Urban and Co Ltd.
+  author: ckaserer
+  namespace: racqspace
+  description: >-
+    Install and configure microk8s - the smallest,
+    simplest, pure production K8s on debian based systems.
   license: MIT
-  min_ansible_version: 2.7
+  min_ansible_version: "2.10"
   platforms:
     - name: Ubuntu
       versions:
-        - xenial
-        - bionic
+        - focal
   galaxy_tags:
-    - kubernetes
-    - k8s
+    - container
     - development
+    - devops
+    - k8s
+    - kubernetes
+    - microk8s
+    - system
 dependencies: []
+...
