@@ -6,8 +6,8 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/racqspace/ansible-role-microk8s?style=flat-square)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022?style=flat-square)
 
-![Ansible Role](https://img.shields.io/ansible/role/56296?style=flat-square)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/56296?style=flat-square)
+![Ansible Role](https://img.shields.io/ansible/role/56348?style=flat-square)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/56348?style=flat-square)
 
 Install and configure [microk8s](https://microk8s.io/) - the smallest, simplest, pure production K8s on debian based systems.
 
