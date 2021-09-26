@@ -56,7 +56,7 @@
     - name: Set the microk8s join command on the microk8s node
       ansible.builtin.command:
         cmd: "{{ microk8s_join_command.stdout }}"
-      when: microk8s_cluster_node.stdout.find(inventory_hostname) == -1
+      when: microk8s_cluster_node.stdout.find(inventory_hostname_short) == -1
 
   when: inventory_hostname != microk8s_designated_host
   tags:
