@@ -38,6 +38,10 @@ microk8s_disable_snap_autoupdate: false
 
 microk8s_registry_size: 20Gi
 
+microk8s_dns_servers:
+  - 8.8.8.8
+  - 8.8.4.4
+
 ## microk8s_users to make members of microk8s group
 microk8s_users: []
 
