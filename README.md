@@ -53,13 +53,14 @@ This role is maintained by [Clemens Kaserer](https://www.ckaserer.dev/).
 
 Contributions by:
 
+- [@BabisK](https://github.com/BabisK)
 - [@ckaserer](https://github.com/ckaserer)
-- [@Defilan]((https://github.com/defilan)
-- [@dleske]((https://github.com/dleske)
-- [@dyasny]((https://github.com/dyasny)
-- [@ericpardee]((https://github.com/ericpardee)
-- [@eshikhov]((https://github.com/eshikhov)
-- [@istvano]((https://github.com/istvano)
-- [@markmywords]((https://github.com/markmywords)
-- [@Turiok]((https://github.com/turiok)
-- [@vonDowntown]((https://github.com/vonDowntown)
+- [@Defilan](https://github.com/defilan)
+- [@dleske](https://github.com/dleske)
+- [@dyasny](https://github.com/dyasny)
+- [@ericpardee](https://github.com/ericpardee)
+- [@eshikhov](https://github.com/eshikhov)
+- [@istvano](https://github.com/istvano)
+- [@markmywords](https://github.com/markmywords)
+- [@Turiok](https://github.com/turiok)
+- [@vonDowntown](https://github.com/vonDowntown)
