@@ -33,10 +33,11 @@
 
 - name: create kubectl config
   ansible.builtin.shell:
-    cmd: microk8s config > /home/{{ microk8s_user }}/.kube/config
+    cmd: microk8s config > ~/.kube/config
   args:
     executable: /bin/bash
-    creates: /home/{{ microk8s_user }}/.kube/config
+    creates: ~/.kube/config
+  become_user: '{{ microk8s_user }}'
   environment:
     PATH: '${PATH}:/snap/bin/'
   with_items: '{{ microk8s_users }}'
@@ -49,13 +50,31 @@
     - microk8s.kube
     - microk8s.kube.config
 
-- name: reaffirm permission on files
+- name: reaffirm permission on config directory
+  become_user: '{{ microk8s_user }}'
   ansible.builtin.file:
     path: ~/.kube
     state: directory
     owner: '{{ microk8s_user }}'
     group: '{{ microk8s_user }}'
     recurse: true
+  with_items: '{{ microk8s_users }}'
+  loop_control:
+    loop_var: microk8s_user
+    label: '{{ microk8s_user }}'
+  tags:
+    - microk8s
+    - microk8s.kube
+    - microk8s.kube.permission
+
+- name: reaffirm permission on config file
+  become_user: '{{ microk8s_user }}'
+  ansible.builtin.file:
+    path: ~/.kube/config
+    state: file
+    owner: '{{ microk8s_user }}'
+    group: '{{ microk8s_user }}'
+    mode: 0600
   with_items: '{{ microk8s_users }}'
   loop_control:
     loop_var: microk8s_user
