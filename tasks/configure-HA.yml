@@ -25,7 +25,7 @@
 - block:
     - name: Waiting for microk8s to be ready on microk8s host master
       ansible.builtin.command:
-        cmd: "microk8s status --wait-ready"
+        cmd: microk8s status --wait-ready
       delegate_to: "{{ microk8s_designated_host }}"
       delegate_facts: true
       changed_when: false
@@ -42,7 +42,7 @@
 
     - name: Get microk8s cluster nodes
       ansible.builtin.command:
-        cmd: "microk8s kubectl get node"
+        cmd: kubectl get nodes --no-headers -o custom-columns=Node:.metadata.name
       delegate_to: "{{ microk8s_designated_host }}"
       delegate_facts: true
       changed_when: false
@@ -54,13 +54,14 @@
 
     - name: Waiting for microk8s to be ready on microk8s host node
       ansible.builtin.command:
-        cmd: "microk8s status --wait-ready"
+        cmd: microk8s status --wait-ready
       changed_when: false
 
     - name: Set the microk8s join command on the microk8s node
       ansible.builtin.command:
         cmd: "{{ microk8s_join_command.stdout }}"
-      when: microk8s_cluster_node.stdout.find(inventory_hostname_short) == -1
+      when: 
+        - inventory_hostname not in microk8s_cluster_node.stdout
 
   when: inventory_hostname != microk8s_designated_host
   tags:
