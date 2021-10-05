@@ -48,10 +48,6 @@
       changed_when: false
       register: microk8s_cluster_node
 
-    - name: Print result of kubectl get node
-      ansible.builtin.debug:
-        var: microk8s_cluster_node
-
     - name: Waiting for microk8s to be ready on microk8s host node
       ansible.builtin.command:
         cmd: microk8s status --wait-ready
