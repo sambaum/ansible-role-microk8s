@@ -2,6 +2,18 @@
 - name: Verify
   hosts: instance*
   tasks:
+    - name: Make sure user is added to microk8s group
+      ansible.builtin.user:
+        name: ckaserer
+        groups: microk8s
+        append: true
+      register: microk8s_verify
+      failed_when: microk8s_verify.changed
+      tags:
+        - microk8s
+        - microk8s.user
+        - microk8s.user.group
+
     - name: Make sure dependencies are installed
       ansible.builtin.apt:
         name:
@@ -48,7 +60,8 @@
         - microk8s.install
 
     - name: Create kubectl alias
-      shell: command -v /snap/bin/kubectl >/dev/null 2>&1
+      ansible.builtin.shell:
+        cmd: command -v /snap/bin/kubectl >/dev/null 2>&1
       changed_when: false
       tags:
         - microk8s

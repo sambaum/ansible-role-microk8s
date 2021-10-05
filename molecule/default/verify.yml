@@ -48,7 +48,8 @@
         - microk8s.install
 
     - name: Create kubectl alias
-      shell: command -v /snap/bin/kubectl >/dev/null 2>&1
+      ansible.builtin.shell:
+        cmd: command -v /snap/bin/kubectl >/dev/null 2>&1
       changed_when: false
       tags:
         - microk8s
