@@ -51,7 +51,6 @@
     - microk8s.kube.config
 
 - name: reaffirm permission on config directory
-  become_user: '{{ microk8s_user }}'
   ansible.builtin.file:
     path: ~/.kube
     state: directory
