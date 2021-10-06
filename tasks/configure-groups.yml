@@ -52,12 +52,13 @@
 
 - name: reaffirm permission on config directory
   ansible.builtin.file:
-    path: ~/.kube
+    path: ~{{ microk8s_user }}/.kube
     state: directory
     owner: '{{ microk8s_user }}'
     group: '{{ microk8s_user }}'
     recurse: true
   with_items: '{{ microk8s_users }}'
+  become: true
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user }}'
