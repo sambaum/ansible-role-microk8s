@@ -1,6 +1,7 @@
 ---
 - name: Verify
-  hosts: instance*
+  hosts: all
+  become: true
   tasks:
     - name: Make sure user is added to microk8s group
       ansible.builtin.user:

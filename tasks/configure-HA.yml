@@ -55,7 +55,7 @@
 
     - name: Set the microk8s join command on the microk8s node
       ansible.builtin.command:
-        cmd: "{{ microk8s_join_command.stdout }}"
+        cmd: "{{ microk8s_join_command.stdout }} --skip-verify"
       when:
         - inventory_hostname not in microk8s_cluster_node.stdout
 

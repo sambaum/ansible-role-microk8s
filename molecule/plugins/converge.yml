@@ -5,6 +5,8 @@
   roles:
     - role: racqspace.microk8s
       vars:
-        microk8s_users:
-          - ckaserer
+        microk8s_plugins:
+          dns: true
+          helm3: true
+          registry: true
 ...

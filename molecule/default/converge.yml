@@ -1,6 +1,7 @@
 ---
 - name: Converge
-  hosts: instance*
+  hosts: all
+  become: true
   roles:
     - role: racqspace.microk8s
 ...

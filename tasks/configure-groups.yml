@@ -8,6 +8,7 @@
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user }}'
+  register: microk8s_add_user_to_group
   tags:
     - microk8s
     - microk8s.user
@@ -15,17 +16,15 @@
 
 - name: Create .kube folder for the user
   ansible.builtin.file:
-    path: ~/.kube
+    path: "{{ microk8s_user.home }}/.kube"
     state: directory
-    owner: '{{ microk8s_user }}'
-    group: '{{ microk8s_user }}'
+    owner: '{{ microk8s_user.name }}'
+    group: '{{ microk8s_user.name }}'
     mode: 0750
-  become: true
-  become_user: '{{ microk8s_user }}'
-  with_items: '{{ microk8s_users }}'
+  with_items: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
-    label: '{{ microk8s_user }}'
+    label: '{{ microk8s_user.name }}'
   tags:
     - microk8s
     - microk8s.kube
@@ -33,17 +32,16 @@
 
 - name: create kubectl config
   ansible.builtin.shell:
-    cmd: microk8s config > ~/.kube/config
+    cmd: microk8s config > {{ microk8s_user.home }}/.kube/config
   args:
     executable: /bin/bash
-    creates: ~/.kube/config
-  become_user: '{{ microk8s_user }}'
+    creates: "{{ microk8s_user.home }}/.kube/config"
   environment:
     PATH: '${PATH}:/snap/bin/'
-  with_items: '{{ microk8s_users }}'
+  with_items: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
-    label: '{{ microk8s_user }}'
+    label: '{{ microk8s_user.name }}'
   tags:
     - molecule-idempotence-notest
     - microk8s
@@ -52,33 +50,31 @@
 
 - name: reaffirm permission on config directory
   ansible.builtin.file:
-    path: ~{{ microk8s_user }}/.kube
+    path: "{{ microk8s_user.home }}/.kube"
     state: directory
-    owner: '{{ microk8s_user }}'
-    group: '{{ microk8s_user }}'
+    owner: '{{ microk8s_user.name }}'
+    group: '{{ microk8s_user.name }}'
     recurse: true
-  with_items: '{{ microk8s_users }}'
-  become: true
+  with_items: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
-    label: '{{ microk8s_user }}'
+    label: '{{ microk8s_user.name }}'
   tags:
     - microk8s
     - microk8s.kube
     - microk8s.kube.permission
 
 - name: reaffirm permission on config file
-  become_user: '{{ microk8s_user }}'
   ansible.builtin.file:
-    path: ~/.kube/config
+    path: "{{ microk8s_user.home }}/.kube/config"
     state: file
-    owner: '{{ microk8s_user }}'
-    group: '{{ microk8s_user }}'
+    owner: '{{ microk8s_user.name }}'
+    group: '{{ microk8s_user.name }}'
     mode: 0600
-  with_items: '{{ microk8s_users }}'
+  with_items: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
-    label: '{{ microk8s_user }}'
+    label: '{{ microk8s_user.name }}'
   tags:
     - microk8s
     - microk8s.kube
