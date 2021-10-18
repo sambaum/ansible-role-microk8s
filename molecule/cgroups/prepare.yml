@@ -8,7 +8,7 @@
         path: /boot/firmware
         state: directory
         recurse: true
-        permissions: 0755
+        mode: 0755
 
     - name: Create /boot/firmware/cmdline.txt
       ansible.builtin.copy:
