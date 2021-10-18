@@ -1,4 +1,11 @@
 ---
+- name: Enable crgroups
+  ansible.builtin.import_tasks:
+    file: cgroups.yml
+  tags:
+    - always
+    - microk8s
+
 - name: install microk8s
   ansible.builtin.import_tasks:
     file: install.yml
