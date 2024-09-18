@@ -12,7 +12,7 @@
   - microk8s_plugin.key != "dns"
   register: microk8s_cmd_result
   changed_when:
-  - "'Addon {{ microk8s_plugin.key }} is already enabled' not in microk8s_cmd_result.stdout"
+  - "'is already enabled' not in microk8s_cmd_result.stdout"
   tags:
   - molecule-idempotence-notest
   - microk8s
@@ -28,7 +28,7 @@
     label: "{{ microk8s_plugin.key }}"
   register: microk8s_cmd_result
   changed_when:
-  - "'Addon {{ microk8s_plugin.key }} is already disabled' not in microk8s_cmd_result.stdout"
+  - "'is already disabled' not in microk8s_cmd_result.stdout"
   when:
   - microk8s_plugins is defined
   - not (microk8s_plugin.value | bool)
