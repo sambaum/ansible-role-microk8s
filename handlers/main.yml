@@ -1,6 +1,4 @@
----
 - name: Reboot System
   ansible.builtin.reboot:
   tags:
-    - always
-...
+  - always
