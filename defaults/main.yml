@@ -2,6 +2,7 @@
 microk8s_cache_valid_time: 3600
 
 microk8s_snap_channel: latest/stable
+# check with: snap info microk8s
 
 ## version management
 microk8s_disable_snap_autoupdate: false
