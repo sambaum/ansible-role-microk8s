@@ -1,2 +1,4 @@
 - name: Reboot System
   ansible.builtin.reboot:
+  tags:
+  - microk8s

@@ -3,7 +3,7 @@
     name: "{{ microk8s_user }}"
     groups: microk8s
     append: true
-  with_items: '{{ microk8s_users }}'
+  loop: '{{ microk8s_users }}'
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user }}'
@@ -20,7 +20,7 @@
     owner: '{{ microk8s_user.name }}'
     group: '{{ microk8s_user.name }}'
     mode: 0750
-  with_items: '{{ microk8s_add_user_to_group.results }}'
+  loop: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user.name }}'
@@ -37,7 +37,7 @@
     creates: "{{ microk8s_user.home }}/.kube/config"
   environment:
     PATH: '${PATH}:/snap/bin/'
-  with_items: '{{ microk8s_add_user_to_group.results }}'
+  loop: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user.name }}'
@@ -54,7 +54,7 @@
     owner: '{{ microk8s_user.name }}'
     group: '{{ microk8s_user.name }}'
     recurse: true
-  with_items: '{{ microk8s_add_user_to_group.results }}'
+  loop: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user.name }}'
@@ -70,7 +70,7 @@
     owner: '{{ microk8s_user.name }}'
     group: '{{ microk8s_user.name }}'
     mode: 0600
-  with_items: '{{ microk8s_add_user_to_group.results }}'
+  loop: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
     label: '{{ microk8s_user.name }}'

@@ -1,7 +1,7 @@
 - name: Enable plugins
   ansible.builtin.command:
     cmd: "microk8s.enable {{ microk8s_plugin.key }}"
-  with_dict: "{{ microk8s_plugins }}"
+  loop: "{{ microk8s_plugins | dict2items }}"
   loop_control:
     loop_var: microk8s_plugin
     label: "{{ microk8s_plugin.key }}"
@@ -22,7 +22,7 @@
 - name: Disable plugins
   ansible.builtin.command:
     cmd: "microk8s.disable {{ microk8s_plugin.key }}"
-  with_dict: "{{ microk8s_plugins | default({}) }}"
+  loop: "{{ microk8s_plugins | default({}) | dict2items }}"
   loop_control:
     loop_var: microk8s_plugin
     label: "{{ microk8s_plugin.key }}"

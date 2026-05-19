@@ -29,7 +29,7 @@
     regexp: '^(.*)'
     line: '{{ microk8s_cgroup_opt }} \1'
     backrefs: true
-  with_items:
+  loop:
   - "cgroup_enable=memory"
   - "cgroup_memory=1"
   loop_control:
