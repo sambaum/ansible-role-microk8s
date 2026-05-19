@@ -1,4 +1,4 @@
-- name: Enable crgroups
+- name: Enable cgroups
   ansible.builtin.import_tasks:
     file: cgroups.yml
   tags:

@@ -10,6 +10,8 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - focal
+    - jammy
+    - noble
   galaxy_tags:
   - container
   - development
