@@ -36,7 +36,7 @@
     executable: /bin/bash
     creates: "{{ microk8s_user.home }}/.kube/config"
   environment:
-    PATH: '${PATH}:/snap/bin/'
+    PATH: "{{ ansible_env.PATH }}:/snap/bin/"
   loop: '{{ microk8s_add_user_to_group.results }}'
   loop_control:
     loop_var: microk8s_user
