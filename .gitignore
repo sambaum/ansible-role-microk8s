@@ -1,2 +1,4 @@
 *.retry
 .env
+.ansible
+.ansible-lint
