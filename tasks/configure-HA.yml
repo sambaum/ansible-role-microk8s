@@ -15,12 +15,17 @@
 
 - name: Find the designated host
   ansible.builtin.set_fact:
-    microk8s_designated_host: '{{ (groups[microk8s_group_ha]|sort)[0] }}'
+    microk8s_designated_host: '{{ (groups[microk8s_group_ha] | sort)[0] }}'
   tags:
   - microk8s
   - microk8s.ha
 
 - name: Join HA cluster
+  when: inventory_hostname != microk8s_designated_host
+  tags:
+  - microk8s
+  - microk8s.ha
+  - microk8s.ha.join
   block:
   - name: Waiting for microk8s to be ready on microk8s host master
     ansible.builtin.command:
@@ -32,7 +37,9 @@
   - name: Get the microk8s join command from the microk8s master
     ansible.builtin.shell:
       cmd: >-
+        set -o pipefail &&
         microk8s add-node | grep -E -m1 'microk8s join {{ microk8s_ip_regex_ha }}'
+      executable: /bin/bash
     delegate_to: "{{ microk8s_designated_host }}"
     delegate_facts: true
     changed_when: false
@@ -57,9 +64,3 @@
     changed_when: true
     when:
     - inventory_hostname not in microk8s_cluster_node.stdout
-
-  when: inventory_hostname != microk8s_designated_host
-  tags:
-  - microk8s
-  - microk8s.ha
-  - microk8s.ha.join
