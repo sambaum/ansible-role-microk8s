@@ -2,7 +2,7 @@
   ansible.builtin.apt:
     name:
     - snapd
-    - fuse
+    - fuse3
     - udev
     state: present
     update_cache: true
